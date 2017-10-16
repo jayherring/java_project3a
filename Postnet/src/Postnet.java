@@ -29,6 +29,8 @@ public class Postnet {
 					 System.out.println(name);
 					 System.out.println(street);
 					 System.out.println(city+" "+state+" "+ zip);
+					 System.out.println(getBarCode(zip));
+					
 					 break;
 				}
 			
@@ -37,6 +39,38 @@ public class Postnet {
 		
 		
 	    }
+	
+	public static String getBarCode(String input) {
+		// take away "-" from input
+		int checksum;
+		int sum = 0;
+	
+		
+		int dash = 5;
+		String dashlessInput = input.substring(0,dash)+input.substring(6,10);
+		
+				 
+		System.out.println(dashlessInput);
+		String chars ="0123456789";
+				String[] barcodes = {"||:::",":::||","::|:|","::||:",":|::|",":|:|:",":||::","|:::|","|::|:","|:|::"};
+				
+				 String bar = "|";
+			        for(int i = 0; i < dashlessInput.length( ); i++) {
+			            char c = dashlessInput.charAt(i);
+			            int index = chars.indexOf(c);
+			            sum += index;
+			            
+			            String code = barcodes[index];
+			            bar += code;
+			        }
+			        checksum = (10-sum%10)%10;
+			        
+			        return bar+barcodes[checksum]+"|";
+			        
+			        
+			        
+
+	}
 
 	
 
